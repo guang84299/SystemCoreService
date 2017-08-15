@@ -86,7 +86,7 @@ public class CoreService extends Service{
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-			Toast.makeText(CoreService.this, "SystemService die!", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(CoreService.this, "SystemService die!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(CoreService.this,SystemService.class);
             CoreService.this.startService(intent);
             CoreService.this.bindService(intent, conn, Context.BIND_IMPORTANT);
