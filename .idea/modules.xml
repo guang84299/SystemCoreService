@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SystemCoreService.iml" filepath="$PROJECT_DIR$/SystemCoreService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gad/gad.iml" filepath="$PROJECT_DIR$/gad/gad.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gadlib/gadlib.iml" filepath="$PROJECT_DIR$/gadlib/gadlib.iml" />
+    </modules>
+  </component>
+</project>

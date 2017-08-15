@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "308005971599",
+    "firebase_url": "https://systemcoreservice.firebaseio.com",
+    "project_id": "systemcoreservice",
+    "storage_bucket": "systemcoreservice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308005971599:android:da9383169e2c5b9c",
+        "android_client_info": {
+          "package_name": "com.android.system.core.sometools"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308005971599-2ej3v59cod9rvbom086enkv7nr6oocki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOMvXlGWqFF0G8-U3YwaZNolVmJ1MeAc0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
