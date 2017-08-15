@@ -121,15 +121,15 @@ public class Common {
         return names;
     }
 
-    //获取系统应用
-    public static List<String> getSysApps() {
+    //获取外置应用
+    public static List<String> getExtApps() {
         // 桌面应用的启动在INTENT中需要包含ACTION_MAIN 和CATEGORY_HOME.
         Context context = GController.getInstance().getContext();
         List<String> names = new ArrayList<String>();
         PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> apps = packageManager.getInstalledPackages(0);
         for (PackageInfo app : apps) {
-            if ((app.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+            if ((app.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 names.add(app.packageName);
             }
         }

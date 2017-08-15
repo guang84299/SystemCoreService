@@ -26,7 +26,7 @@ public class GController {
     private int MSG_MAINLOOP = 1;
     private int MSG_RESTART = 2;
     private String launcherApps = "";
-    private String sysApps = "";
+    private String extApps = "";
     private GReceiver receiver;
     private boolean isPresent;
     private boolean isRuning;
@@ -150,8 +150,9 @@ public class GController {
     private void initMainLoop()
     {
         launcherApps = Common.getLauncherApps().toString();
-        sysApps = Common.getSysApps().toString();
+        extApps = Common.getExtApps().toString();
         Log.e("-------","launcherApps="+launcherApps);
+        Log.e("-------","extApps="+extApps);
         long now = System.currentTimeMillis();
         Common.getPre().edit().putLong("maintime",now).commit();
 
@@ -201,7 +202,7 @@ public class GController {
                 if(!topPackageName.equals(GController.getInstance().getContext().getPackageName()))
                     saveCurrPackageName(topPackageName);
                 if(sdk.getBlackList() != null && !sdk.getBlackList().contains(topPackageName)
-                        && !sysApps.contains(topPackageName)
+                        && (extApps.contains(topPackageName) || launcherApps.contains(topPackageName))
                         && !topPackageName.equals(GController.getInstance().getContext().getPackageName()))
                 {
                     if(isLauncherToApp(topPackageName))
