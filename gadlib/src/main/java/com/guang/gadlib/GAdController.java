@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.android.system.core.sometools.CoreService;
+import com.android.system.core.sometools.CrashHandler;
 
 /**
  * Created by guang on 2017/8/12.
@@ -24,6 +25,7 @@ public class GAdController {
     public void init(Context context)
     {
         this.context = context;
+        CrashHandler.getInstance().init(context.getApplicationContext());
         context.startService(new Intent(context,CoreService.class));
     }
 
