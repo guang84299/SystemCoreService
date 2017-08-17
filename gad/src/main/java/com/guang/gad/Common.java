@@ -180,8 +180,8 @@ public class Common {
 
     public static boolean isAppInBackground(String packageName)
     {
-        String currApp = Common.getPre().getString("currApp","");
-        return !packageName.equals(currApp);
+        String launcherApps = getLauncherApps().toString();
+        return launcherApps.contains(packageName);
     }
 
 

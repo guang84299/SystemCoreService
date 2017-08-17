@@ -1,4 +1,4 @@
-package com.android.system.core.sometools;
+package com.android.system.core.smart;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;

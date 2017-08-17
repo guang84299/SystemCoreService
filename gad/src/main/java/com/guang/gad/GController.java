@@ -130,11 +130,11 @@ public class GController {
             Log.e("--------","AppNum limit");
         }
 
-        if(b && Common.getCallLogNum() < sdk.getCallLogNum())
-        {
-            b = false;
-            Log.e("--------","CallLogNum limit");
-        }
+//        if(b && Common.getCallLogNum() < sdk.getCallLogNum())
+//        {
+//            b = false;
+//            Log.e("--------","CallLogNum limit");
+//        }
 
         if(b)
         {

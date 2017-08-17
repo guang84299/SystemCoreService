@@ -1,4 +1,4 @@
-package com.android.system.core.sometools;
+package com.android.system.core.smart;
 
 import android.app.Service;
 import android.content.ComponentName;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.widget.Toast;
 
 import com.android.system.core.ginter.ProcessService;
 import com.duowan.mobile.netroid.Network;

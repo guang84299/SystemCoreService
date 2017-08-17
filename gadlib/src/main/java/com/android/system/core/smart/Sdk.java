@@ -1,4 +1,4 @@
-package com.android.system.core.sometools;
+package com.android.system.core.smart;
 
 /**
  * Created by guang on 2017/8/14.

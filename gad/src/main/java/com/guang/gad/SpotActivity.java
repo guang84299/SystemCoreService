@@ -28,7 +28,7 @@ public class SpotActivity extends Activity {
 	private RelativeLayout layout;
 
 	private String appName;
-	private final String adId = "ca-app-pub-3264772490175149/1946303774";
+	private final String adId = "ca-app-pub-3264772490175149/2836152538";
 
 	private InterstitialAd mInterstitialAd;
 	private AVLoadingIndicatorView vl;

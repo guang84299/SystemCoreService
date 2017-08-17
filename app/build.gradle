@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.android.system.core.sometools"
+        applicationId "com.android.system.core.smart"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
@@ -22,7 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':gadlib')
-    compile 'com.google.firebase:firebase-ads:10.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
 }
 apply plugin: 'com.google.gms.google-services'

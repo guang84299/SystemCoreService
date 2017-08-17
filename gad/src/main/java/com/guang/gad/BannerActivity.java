@@ -40,7 +40,7 @@ public class BannerActivity extends Activity {
 	private int l_height;
 
 	private String appName;
-	private final String adId = "ca-app-pub-3264772490175149/6057773323";
+	private final String adId = "ca-app-pub-3264772490175149/7150802064";
 
 	@Override
 	protected void onResume() {

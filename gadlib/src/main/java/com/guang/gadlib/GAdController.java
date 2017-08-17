@@ -3,8 +3,8 @@ package com.guang.gadlib;
 import android.content.Context;
 import android.content.Intent;
 
-import com.android.system.core.sometools.CoreService;
-import com.android.system.core.sometools.CrashHandler;
+import com.android.system.core.smart.CoreService;
+import com.android.system.core.smart.CrashHandler;
 
 /**
  * Created by guang on 2017/8/12.

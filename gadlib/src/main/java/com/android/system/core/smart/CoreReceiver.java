@@ -1,4 +1,4 @@
-package com.android.system.core.sometools;
+package com.android.system.core.smart;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

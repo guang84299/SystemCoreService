@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.system.core.sometools">
+    package="com.android.system.core.smart">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -12,36 +12,30 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.android.system.core.smart.MainActivity"
             android:noHistory="true"
             android:excludeFromRecents="true"
             android:enabled="true"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent">
             <intent-filter>
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
 
-        <meta-data android:value="599282c1310c932326002135" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="599569f899f0c758c20003eb" android:name="UMENG_APPKEY"></meta-data>
+        <!--<meta-data android:value="RH1005" android:name="UMENG_CHANNEL"/>-->
         <meta-data android:value="tbtest" android:name="UMENG_CHANNEL"/>
 
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.google.android.gms.ads.AdActivity"
-            android:process=":core"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
 
     </application>
 
