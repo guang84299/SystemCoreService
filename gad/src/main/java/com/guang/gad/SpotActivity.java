@@ -13,9 +13,9 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.sixth.adwoad.ErrorCode;
+import com.sixth.adwoad.InterstitialAd;
+import com.sixth.adwoad.InterstitialAdListener;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 
@@ -28,9 +28,9 @@ public class SpotActivity extends Activity {
 	private RelativeLayout layout;
 
 	private String appName;
-	private final String adId = "ca-app-pub-3264772490175149/2836152538";
+	private final String mSlotId = "d6f51193ca014fc5a4d21947373417bb";
 
-	private InterstitialAd mInterstitialAd;
+	private InterstitialAd ad;
 	private AVLoadingIndicatorView vl;
 
 	private List<String> bgColors = new ArrayList<String>();
@@ -40,14 +40,27 @@ public class SpotActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		UMGameAgent.onResume(this);
+
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		UMGameAgent.onPause(this);
+
 	}
-	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(ad != null)
+		{
+			ad.dismiss();
+			ad= null;
+		}
+
+	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -77,24 +90,24 @@ public class SpotActivity extends Activity {
 
 		this.appName = getIntent().getStringExtra("appName");
 
-		initLoads();
-
-		int loadNum = Common.getPre().getInt("spotLoadNum",0);
-		if(loadNum >= bgColors.size())
-			loadNum = 0;
-
-		layout.setBackgroundColor(Color.parseColor(bgColors.get(loadNum)));
-
-		vl = new AVLoadingIndicatorView(this);
-		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams2.addRule(RelativeLayout.CENTER_IN_PARENT);
-		vl.setIndicatorColor(Color.parseColor(loadColors.get(loadNum)));
-		layout.addView(vl,layoutParams2);
-		vl.setIndicator("BallPulseIndicator");
-
-		Common.getPre().edit().putInt("spotLoadNum",loadNum+1).commit();
+//		initLoads();
+//
+//		int loadNum = Common.getPre().getInt("spotLoadNum",0);
+//		if(loadNum >= bgColors.size())
+//			loadNum = 0;
+//
+//		layout.setBackgroundColor(Color.parseColor(bgColors.get(loadNum)));
+//
+//		vl = new AVLoadingIndicatorView(this);
+//		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(
+//				LinearLayout.LayoutParams.WRAP_CONTENT,
+//				LinearLayout.LayoutParams.WRAP_CONTENT);
+//		layoutParams2.addRule(RelativeLayout.CENTER_IN_PARENT);
+//		vl.setIndicatorColor(Color.parseColor(loadColors.get(loadNum)));
+//		layout.addView(vl,layoutParams2);
+//		vl.setIndicator("BallPulseIndicator");
+//
+//		Common.getPre().edit().putInt("spotLoadNum",loadNum+1).commit();
 
 		showAppSpot();
 	}
@@ -126,88 +139,64 @@ public class SpotActivity extends Activity {
 
 	public void showAppSpot()
 	{
-		mInterstitialAd = new InterstitialAd(this);
-		mInterstitialAd.setAdUnitId(this.adId);
-
-		mInterstitialAd.setAdListener(new AdListener() {
+		ad = new InterstitialAd(this, mSlotId, false, new InterstitialAdListener() {
 			@Override
-			public void onAdLoaded() {
-				super.onAdLoaded();
-				if(!Common.isAppInBackground(appName))
-				{
-					mInterstitialAd.show();
-					Log.e("--------------", "app spot success!");
-				}
-				else
-				{
-					hide();
-					Log.e("--------------", "isAppInBackground="+appName);
-				}
+			public void onReceiveAd() {
 
 			}
 
 			@Override
-			public void onAdOpened() {
-				super.onAdOpened();
-				MobclickAgent.onEvent(activity, Common.EVENT_SPOT_SHOW);
+			public void onLoadAdComplete() {
+				ad.displayAd();
 			}
 
 			@Override
-			public void onAdFailedToLoad(int i) {
-				super.onAdFailedToLoad(i);
-				hide();
+			public void onFailedToReceiveAd(ErrorCode errorCode) {
 				MobclickAgent.onEvent(activity, Common.EVENT_SPOT_FAIL);
-				Log.e("-------------","onAdFailedToLoad code="+i + "  adid="+adId);
+				hide();
+				Log.e("-------------","onAdFailedToLoad code="+errorCode.getErrorString());
 			}
 
 			@Override
-			public void onAdClosed() {
-				super.onAdClosed();
-				hide();
+			public void onAdDismiss() {
 				MobclickAgent.onEvent(activity, Common.EVENT_SPOT_CLOSE);
+				hide();
 				Log.e("--------------", "onAdClosed");
 			}
 
 			@Override
-			public void onAdLeftApplication() {
-				super.onAdLeftApplication();
-				MobclickAgent.onEvent(activity, Common.EVENT_SPOT_CLICK);
-				hide();
+			public void OnShow() {
+				MobclickAgent.onEvent(activity, Common.EVENT_SPOT_SHOW);
 			}
 		});
-
-		AdRequest adRequest = new AdRequest.Builder()
-//				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-				.build();
-
-		mInterstitialAd.loadAd(adRequest);
+		ad.prepareAd();
 
 		int num = Common.getPre().getInt("spot_shownum",0);
 		Common.getPre().edit().putInt("spot_shownum",num+1).commit();
 
 		MobclickAgent.onEvent(activity, Common.EVENT_SPOT_REQ);
 
-		final Handler handler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-				if(msg.what == 0x01)
-				{
-					hide();
-				}
-			}
-		};
-
-		new Thread(){
-			public void run() {
-				try {
-					Thread.sleep(1000*40);
-					handler.sendEmptyMessage(0x01);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			};
-		}.start();
+//		final Handler handler = new Handler(){
+//			@Override
+//			public void handleMessage(Message msg) {
+//				super.handleMessage(msg);
+//				if(msg.what == 0x01)
+//				{
+//					hide();
+//				}
+//			}
+//		};
+//
+//		new Thread(){
+//			public void run() {
+//				try {
+//					Thread.sleep(1000*40);
+//					handler.sendEmptyMessage(0x01);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			};
+//		}.start();
 	}
 	
 	public static void hide()

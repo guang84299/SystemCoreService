@@ -25,10 +25,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AbsoluteLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+
+import com.sixth.adwoad.AdListener;
+import com.sixth.adwoad.AdwoAdView;
+import com.sixth.adwoad.ErrorCode;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 
@@ -40,7 +40,7 @@ public class BannerActivity extends Activity {
 	private int l_height;
 
 	private String appName;
-	private final String adId = "ca-app-pub-3264772490175149/7150802064";
+	private final String adId = "d6f51193ca014fc5a4d21947373417bb";
 
 	@Override
 	protected void onResume() {
@@ -107,56 +107,36 @@ public class BannerActivity extends Activity {
 		this.appName = getIntent().getStringExtra("appName");
 
 
-		AdView mAdView = new AdView(this);
+		AdwoAdView adView=new AdwoAdView(this,adId,false,0);
 		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams2.addRule(RelativeLayout.CENTER_IN_PARENT);
-		view.addView(mAdView,layoutParams2);
+		view.addView(adView,layoutParams2);
 
-		mAdView.setAdSize(AdSize.BANNER);
-		mAdView.setAdUnitId(this.adId);
-		mAdView.setAdListener(new AdListener() {
+		adView.setListener(new AdListener() {
 			@Override
-			public void onAdClosed() {
-				super.onAdClosed();
-				MobclickAgent.onEvent(context, Common.EVENT_BANNER_CLOSE);
-				Log.e("-------------","onAdClosed");
-			}
-
-			@Override
-			public void onAdFailedToLoad(int i) {
-				super.onAdFailedToLoad(i);
-				hide(false);
-				MobclickAgent.onEvent(context, Common.EVENT_BANNER_FAIL);
-				Log.e("-------------","onAdFailedToLoad code="+i + "  adid="+adId);
-			}
-
-			@Override
-			public void onAdLeftApplication() {
-				super.onAdLeftApplication();
-				MobclickAgent.onEvent(context, Common.EVENT_BANNER_CLICK);
-				hide(false);
-			}
-
-			@Override
-			public void onAdOpened() {
-				super.onAdOpened();
+			public void onReceiveAd(Object o) {
 				MobclickAgent.onEvent(context, Common.EVENT_BANNER_SHOW);
 			}
 
 			@Override
-			public void onAdLoaded() {
-				super.onAdLoaded();
-				if(!Common.isAppInBackground(appName))
-				{
-					show();
-					Log.e("--------------", "banner success");
-				}
-				else
-					hide(false);
+			public void onFailedToReceiveAd(View view, ErrorCode errorCode) {
+				hide(false);
+				MobclickAgent.onEvent(context, Common.EVENT_BANNER_FAIL);
+				Log.e("-------------","onAdFailedToLoad code="+errorCode.getErrorString() + "  adid="+adId);
+			}
+
+			@Override
+			public void onPresentScreen() {
+//				MobclickAgent.onEvent(context, Common.EVENT_BANNER_SHOW);
+			}
+
+			@Override
+			public void onDismissScreen() {
+				MobclickAgent.onEvent(context, Common.EVENT_BANNER_CLOSE);
+				hide(false);
+				Log.e("-------------","onAdClosed");
 			}
 		});
-		AdRequest adRequest = new AdRequest.Builder().build();
-		mAdView.loadAd(adRequest);
 
  		this.setContentView(root,rootlayoutParams);
 

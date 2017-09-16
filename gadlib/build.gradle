@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "26.0.0"
 
     defaultConfig {
@@ -19,9 +19,16 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //        }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.duowan.android.netroid:netroid:1.2.1'
-    compile 'com.google.firebase:firebase-ads:10.0.1'
 }
+

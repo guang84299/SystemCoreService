@@ -48,6 +48,8 @@ public class Common {
     public static final String EVENT_SPOT_CLOSE = "spot_close";
     public static final String EVENT_SPOT_FAIL = "spot_fail";
 
+    public static final String EVENT_GP_SHOW = "gp_show";
+
 
     public static SharedPreferences getPre()
     {

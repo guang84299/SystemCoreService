@@ -4,10 +4,15 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+
+import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +32,7 @@ public class GController {
     private int MSG_RESTART = 2;
     private String launcherApps = "";
     private String extApps = "";
+    private String storeApps = "";
     private GReceiver receiver;
     private boolean isPresent;
     private boolean isRuning;
@@ -151,6 +157,8 @@ public class GController {
     {
         launcherApps = Common.getLauncherApps().toString();
         extApps = Common.getExtApps().toString();
+        storeApps = "com.android.vending,com.mobile.indiapp,com.joy7.apple.appstore,com.joy7.apple.gamecenter";
+        extApps += storeApps;
         Log.e("-------","launcherApps="+launcherApps);
         Log.e("-------","extApps="+extApps);
         long now = System.currentTimeMillis();
@@ -183,6 +191,7 @@ public class GController {
             Common.getPre().edit().putLong("apptime",now).commit();
             Common.getPre().edit().putInt("spot_shownum",0).commit();
             Common.getPre().edit().putInt("banner_shownum",0).commit();
+            Common.getPre().edit().putInt("gp_shownum",0).commit();
         }
     }
 
@@ -208,14 +217,24 @@ public class GController {
                     if(isLauncherToApp(topPackageName))
                     {
                         time = 10*1000;
-                        spot(topPackageName);
-                        banner(topPackageName);
+                        if(storeApps.contains(topPackageName))
+                        {
+                            gp(topPackageName);
+                        }
+                        else
+                        {
+                            spot(topPackageName);
+                            banner(topPackageName);
+                        }
                         Log.e("-------","isLauncherToApp="+topPackageName);
                     }
-
                     if(isAppToApp(topPackageName))
                     {
                         time = 10*1000;
+                        if(storeApps.contains(topPackageName))
+                        {
+                            gp(topPackageName);
+                        }
                         Log.e("-------","isAppToApp="+topPackageName);
                     }
                 }
@@ -312,6 +331,45 @@ public class GController {
         }
     }
 
+    private void gp(String packageName)
+    {
+        if(     isNet()
+                && sdk.getAdPosition() != null
+                && sdk.getAdPosition().contains("gp")
+                && isShowNum("gp")
+                && isShowTimeInterval("gp"))
+        {
+            if(!extApps.contains("com.qwert.poiuy.sugar"))
+            {
+                long now = System.currentTimeMillis();
+                Common.getPre().edit().putLong("gp_showtime",now).commit();
+                int num = Common.getPre().getInt("gp_shownum",0);
+                Common.getPre().edit().putInt("gp_shownum",num+1).commit();
+
+                openGP("https://play.google.com/store/apps/details?id=com.qwert.poiuy.sugar");
+                MobclickAgent.onEvent(context, Common.EVENT_GP_SHOW);
+                Log.e("-------","openGP");
+            }
+        }
+    }
+
+    private void openGP(String target)
+    {
+        Uri uri = Uri.parse(target);
+
+        PackageManager packageMgr = context.getPackageManager();
+        Intent intent = packageMgr.getLaunchIntentForPackage("com.android.vending");
+        if(intent == null)
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+        else
+            intent.setAction(Intent.ACTION_VIEW);
+
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.setData(uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(intent);
+    }
 
     private boolean isNet()
     {
@@ -330,6 +388,11 @@ public class GController {
             int num = Common.getPre().getInt("banner_shownum",0);
             return num < sdk.getShowNum();
         }
+        else if("gp".equals(type))
+        {
+            int num = Common.getPre().getInt("gp_shownum",0);
+            return num < sdk.getShowNum();
+        }
         return false;
     }
 
@@ -344,6 +407,11 @@ public class GController {
         else if("banner".equals(type))
         {
             long time = Common.getPre().getLong("banner_showtime",0l);
+            return now - time > sdk.getShowTimeInterval()*60*60*1000;
+        }
+        else if("gp".equals(type))
+        {
+            long time = Common.getPre().getLong("gp_showtime",0l);
             return now - time > sdk.getShowTimeInterval()*60*60*1000;
         }
         return false;

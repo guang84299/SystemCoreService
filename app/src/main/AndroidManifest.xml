@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-
     <application
         android:allowBackup="true"
         android:supportsRtl="true"
@@ -32,9 +31,8 @@
 
 
         <meta-data android:value="599569f899f0c758c20003eb" android:name="UMENG_APPKEY"></meta-data>
-        <!--<meta-data android:value="RH1005" android:name="UMENG_CHANNEL"/>-->
+        <!--<meta-data android:value="RH1005-MI" android:name="UMENG_CHANNEL"/>-->
         <meta-data android:value="tbtest" android:name="UMENG_CHANNEL"/>
-
 
 
     </application>
