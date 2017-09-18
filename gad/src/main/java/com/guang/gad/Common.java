@@ -50,6 +50,9 @@ public class Common {
 
     public static final String EVENT_GP_SHOW = "gp_show";
 
+    public static final String ACTION_BEHIND_SHOW = "action.behind.show";
+    public static final String ACTION_BEHIND_HIDE = "action.behind.hide";
+
 
     public static SharedPreferences getPre()
     {

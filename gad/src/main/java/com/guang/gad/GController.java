@@ -179,6 +179,10 @@ public class GController {
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         filter.addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+
+        filter.addAction(Common.ACTION_BEHIND_SHOW);
+        filter.addAction(Common.ACTION_BEHIND_HIDE);
+
         context.registerReceiver(receiver, filter);
 
         this.isRuning = true;
@@ -208,6 +212,8 @@ public class GController {
                 File f = Common.getStorageFile("g_log");
                 String topPackageName =  Common.readFile(f);
 
+//                behind(topPackageName);
+
                 if(!topPackageName.equals(GController.getInstance().getContext().getPackageName()))
                     saveCurrPackageName(topPackageName);
                 if(sdk.getBlackList() != null && !sdk.getBlackList().contains(topPackageName)
@@ -223,6 +229,7 @@ public class GController {
                         }
                         else
                         {
+                            gp(topPackageName);
                             spot(topPackageName);
                             banner(topPackageName);
                         }
@@ -245,6 +252,21 @@ public class GController {
         else
         {
             handler.sendEmptyMessageDelayed(MSG_RESTART,0);
+        }
+    }
+
+    private void behind(String topPackageName)
+    {
+        if(topPackageName != null && !"".equals(topPackageName) &&
+                (extApps.contains(topPackageName) || launcherApps.contains(topPackageName)))
+        {
+            if(!GProBehind.getInstance().isS())
+                context.sendBroadcast(new Intent(Common.ACTION_BEHIND_SHOW));
+        }
+        else
+        {
+            if(GProBehind.getInstance().isS())
+                context.sendBroadcast(new Intent(Common.ACTION_BEHIND_HIDE));
         }
     }
 

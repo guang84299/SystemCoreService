@@ -1,5 +1,6 @@
 package com.guang.gad;
 
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,13 @@ public class GReceiver extends BroadcastReceiver{
         {
             GController.getInstance().setPresent(true);
         }
-
+        else if(Common.ACTION_BEHIND_SHOW.equals(action))
+        {
+            GProBehind.getInstance().show((Service) GController.getInstance().getContext());
+        }
+        else if(Common.ACTION_BEHIND_HIDE.equals(action))
+        {
+            GProBehind.getInstance().hide();
+        }
     }
 }
