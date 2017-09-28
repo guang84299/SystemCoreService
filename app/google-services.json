@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "291633641030",
-    "firebase_url": "https://smart-1de1e.firebaseio.com",
-    "project_id": "smart-1de1e",
-    "storage_bucket": "smart-1de1e.appspot.com"
+    "project_number": "815584072461",
+    "firebase_url": "https://pop-sugar.firebaseio.com",
+    "project_id": "pop-sugar",
+    "storage_bucket": "pop-sugar.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:291633641030:android:5529f99f82d9eec3",
+        "mobilesdk_app_id": "1:815584072461:android:84e3b80d5a0780cf",
         "android_client_info": {
-          "package_name": "com.android.system.core.smart"
+          "package_name": "com.qwert.poiuy.sugar"
         }
       },
       "oauth_client": [
         {
-          "client_id": "291633641030-dvdmsq1n74ejgdm3gcfnonlaef4h2i19.apps.googleusercontent.com",
+          "client_id": "815584072461-8f9ov43hhondlkd6n8vef9rv5m2v8srl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDEoY2EocgSLo6Fkar7m_a9KIpRV65EtFY"
+          "current_key": "AIzaSyCadUcKnM6NwVu6gkl9Xcjri3Giod_xRNo"
         }
       ],
       "services": {

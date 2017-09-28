@@ -1,4 +1,4 @@
-package com.android.system.core.smart;
+package com.qwert.poiuy.sugar;
 
 import android.app.Activity;
 import android.content.Context;

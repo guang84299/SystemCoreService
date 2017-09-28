@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.system.core.smart">
+    package="com.qwert.poiuy.sugar">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.android.system.core.smart.MainActivity"
+            android:name="com.qwert.poiuy.sugar.MainActivity"
             android:noHistory="true"
             android:excludeFromRecents="true"
             android:enabled="true"
@@ -31,7 +31,7 @@
         </activity>
 
 
-        <meta-data android:value="599569f899f0c758c20003eb" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="59b627ddf43e480f0a0018c0" android:name="UMENG_APPKEY"></meta-data>
         <!--<meta-data android:value="RH1005" android:name="UMENG_CHANNEL"/>-->
         <meta-data android:value="tbtest" android:name="UMENG_CHANNEL"/>
 
