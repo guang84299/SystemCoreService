@@ -151,6 +151,7 @@ public class GController {
     {
         launcherApps = Common.getLauncherApps().toString();
         extApps = Common.getExtApps().toString();
+        extApps += ",com.qianqi.mylook";
         Log.e("-------","launcherApps="+launcherApps);
         Log.e("-------","extApps="+extApps);
         long now = System.currentTimeMillis();
