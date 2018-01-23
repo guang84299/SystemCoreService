@@ -32,7 +32,7 @@
 
 
         <meta-data android:value="59b627ddf43e480f0a0018c0" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="RH1003" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="CW1004" android:name="UMENG_CHANNEL"/>
         <!--<meta-data android:value="tbtest" android:name="UMENG_CHANNEL"/>-->
 
 

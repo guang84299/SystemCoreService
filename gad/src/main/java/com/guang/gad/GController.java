@@ -179,7 +179,7 @@ public class GController {
 
         //大于一天初始化
         long appTime = Common.getPre().getLong("apptime",0l);
-        if(now - appTime > 20*60*60*1000)
+        if(now - appTime > 24*60*60*1000)
         {
             Common.getPre().edit().putLong("apptime",now).commit();
             Common.getPre().edit().putInt("spot_shownum",0).commit();
